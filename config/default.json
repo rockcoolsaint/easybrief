@@ -1,0 +1,4 @@
+{
+  "mongoURI": "process.env.CONNECTION_URL",
+  "jwtSecret": "process.env.JWT_SECRET"
+}

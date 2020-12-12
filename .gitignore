@@ -1,6 +1,8 @@
 # directory dependencies
 /node_modules
 
+.env
+
 # client directory dependencies
 client/node_modules
 client/.pnp

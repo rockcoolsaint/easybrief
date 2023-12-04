@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
 import AppNavBar from './components/AppNavbar';
-import ShoppingList from './components/ShoppingList';
-import ItemModal from './components/ItemModal';
+import Posts from './components/Posts';
+import NewPostModal from './components/NewPostModal';
 import { Container } from 'reactstrap';
 
 import { Provider } from 'react-redux';
@@ -23,8 +23,8 @@ function App() {
       <div className="App">
         <AppNavBar />
         <Container>
-          <ItemModal />
-          <ShoppingList />
+          <NewPostModal />
+          <Posts />
         </Container>
       </div>
     </Provider>

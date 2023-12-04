@@ -10,15 +10,16 @@ import {
   Input
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { addItem } from '../actions/itemActions';
+import { addPost } from '../actions/postActions';
 import PropTypes from 'prop-types'
 
 //import { v4 as uuid } from 'uuid';
 
-class ItemModal extends Component {
+class NewPostModal extends Component {
   state = {
     modal: false,
-    name: ''
+    title: '',
+    content: ''
   };
 
   static propTypes = {
@@ -38,12 +39,13 @@ class ItemModal extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const newItem = {
-      name: this.state.name
+    const newPost = {
+      title: this.state.title,
+      content: this.state.content
     }
 
-    // Add item via addItem action
-    this.props.addItem(newItem);
+    // Add post via addPost action
+    this.props.addPost(newPost);
 
     // Close modal
     this.toggle();
@@ -58,7 +60,7 @@ class ItemModal extends Component {
             style={{marginBottom: '2rem'}}
             onClick={this.toggle}
           >
-            Add Item
+            Create Post
           </Button> : <h4 className="mb-3 ml-4">Please log in to manage items</h4>
         }
 
@@ -66,23 +68,31 @@ class ItemModal extends Component {
           isOpen={this.state.modal}
           toggle={this.toggle}
         >
-          <ModalHeader toggle={this.toggle}>Add To Shopping List</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Create New Post</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-              <Label for="item">Item</Label>
+              <Label for="post">Title</Label>
               <Input
                 type="text"
-                name="name"
-                id="item"
-                placeholder="Add shopping item"
+                name="title"
+                id="post"
+                placeholder="Add Post Title"
+                onChange={this.onChange}
+              />
+              <Label for="content">Content</Label>
+              <Input
+                type="textarea"
+                name="content"
+                id="content"
+                placeholder="Content"
                 onChange={this.onChange}
               />
               <Button
                 color="dark"
                 style={{marginTop: '2rem'}}
                 block
-              >Add Item</Button>
+              >Submit Post</Button>
               </FormGroup>
             </Form>
           </ModalBody>
@@ -93,8 +103,8 @@ class ItemModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  item: state.item,
+  post: state.post,
   isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, { addItem })(ItemModal);
+export default connect(mapStateToProps, { addPost })(NewPostModal);

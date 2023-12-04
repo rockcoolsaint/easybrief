@@ -15,7 +15,8 @@ app.use(express.json());
 // DB Config
 // const db = require('./config/keys').mongoURI;
 const connection_url = config.get('mongoURI');
-const db = process.env.NODE_ENV == 'development' ? "mongodb://localhost/mern_shopping" : connection_url;
+// const db = process.env.NODE_ENV == 'development' ? "mongodb://localhost/mern_shopping" : connection_url;
+const db = process.env.CONNECTION_URL;
 
 // Connect to mongo
 mongoose
@@ -29,7 +30,7 @@ mongoose
 mongoose.set('useFindAndModify', false);
 
 // Use Routes
-app.use('/api/items', require('./routes/api/items'));
+app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 

@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
-import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { connect } from 'react-redux';
-import { getItems, deleteItem } from '../actions/itemActions';
+// import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// import { connect } from 'react-redux';
+// import { getPosts, deletePost } from '../actions/postActions';
 import PropTypes from 'prop-types';
 
-export class ShoppingList extends Component {
+export class Posts extends Component {
   static propTypes = {
-    getItems: PropTypes.func.isRequired,
-    item: PropTypes.object.isRequired,
+    getPosts: PropTypes.func.isRequired,
+    post: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool
   };
 
   componentDidMount() {
-    this.props.getItems();
+    this.props.getPosts();
   }
 
   onDeleteClick = (id) => {
-    this.props.deleteItem(id);
+    this.props.deletePost(id);
   }
 
   render() {
-    const { items } = this.props.item;
+    const { posts } = this.props.post;
     return (
       <Container>
 
         <ListGroup>
           <TransitionGroup className="shopping-list">
-            {items.map(({ _id, name }) => (
+            {posts.map(({ _id, title }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
                   { this.props.isAuthenticated ?
@@ -38,7 +38,7 @@ export class ShoppingList extends Component {
                       onClick={this.onDeleteClick.bind(this, _id)}
                     >&times;</Button> : null
                   }
-                  {name}
+                  {title}
                 </ListGroupItem>
               </CSSTransition>
             ))}
@@ -49,17 +49,17 @@ export class ShoppingList extends Component {
   }
 }
 
-/**ShoppingList.propTypes = {
-  getItems: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired
+/**Posts.propTypes = {
+  getPosts: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired
 }*/
 
 const mapStateToProps = (state) => ({
-  item: state.item,
+  post: state.post,
   isAuthenticated: state.auth.isAuthenticated
 })
 
 export default connect(
   mapStateToProps,
-  { getItems, deleteItem }
-)(ShoppingList);
+  { getPosts, deletePost }
+)(Posts);
